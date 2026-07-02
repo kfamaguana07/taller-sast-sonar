@@ -16,12 +16,13 @@ jobs:
       - name: Scan auth-service
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/workspace" \
+            -v taller-sast-sonar_runner_data:/tmp/runner \
+            -w /tmp/runner/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
               -Dsonar.projectKey=auth-service \
-              -Dsonar.sources=/workspace/apps/auth-service/src \
+              -Dsonar.sources=apps/auth-service/src \
               -Dsonar.host.url=http://sonarqube:9000 \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
@@ -34,12 +35,13 @@ jobs:
       - name: Scan products
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/workspace" \
+            -v taller-sast-sonar_runner_data:/tmp/runner \
+            -w /tmp/runner/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
               -Dsonar.projectKey=products \
-              -Dsonar.sources=/workspace/apps/products/src \
+              -Dsonar.sources=apps/products/src \
               -Dsonar.host.url=http://sonarqube:9000 \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
@@ -52,12 +54,13 @@ jobs:
       - name: Scan frontend
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/workspace" \
+            -v taller-sast-sonar_runner_data:/tmp/runner \
+            -w /tmp/runner/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
               -Dsonar.projectKey=frontend \
-              -Dsonar.sources=/workspace/apps/frontend/src \
+              -Dsonar.sources=apps/frontend/src \
               -Dsonar.host.url=http://sonarqube:9000 \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
@@ -70,11 +73,12 @@ jobs:
       - name: Scan analisis-vulnerabilidades
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/workspace" \
+            -v taller-sast-sonar_runner_data:/tmp/runner \
+            -w /tmp/runner/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
               -Dsonar.projectKey=analisis-vulnerabilidades \
-              -Dsonar.sources=/workspace/apps/analisis-vulnerabilidades/backend,/workspace/apps/analisis-vulnerabilidades/frontend \
+              -Dsonar.sources=apps/analisis-vulnerabilidades/backend,apps/analisis-vulnerabilidades/frontend \
               -Dsonar.host.url=http://sonarqube:9000 \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
