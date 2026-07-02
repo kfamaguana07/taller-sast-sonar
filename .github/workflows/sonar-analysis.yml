@@ -17,7 +17,7 @@ jobs:
         run: |
           docker run --rm \
             -v taller-sast-sonar_runner_data:/tmp/runner \
-            -w /tmp/runner/taller-sast-sonar \
+            -w /tmp/runner/taller-sast-sonar/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
@@ -36,7 +36,7 @@ jobs:
         run: |
           docker run --rm \
             -v taller-sast-sonar_runner_data:/tmp/runner \
-            -w /tmp/runner/taller-sast-sonar \
+            -w /tmp/runner/taller-sast-sonar/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
@@ -55,7 +55,7 @@ jobs:
         run: |
           docker run --rm \
             -v taller-sast-sonar_runner_data:/tmp/runner \
-            -w /tmp/runner/taller-sast-sonar \
+            -w /tmp/runner/taller-sast-sonar/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
@@ -74,7 +74,7 @@ jobs:
         run: |
           docker run --rm \
             -v taller-sast-sonar_runner_data:/tmp/runner \
-            -w /tmp/runner/taller-sast-sonar \
+            -w /tmp/runner/taller-sast-sonar/taller-sast-sonar \
             --network taller-sast-sonar_devsecops \
             sonarsource/sonar-scanner-cli \
             sonar-scanner \
