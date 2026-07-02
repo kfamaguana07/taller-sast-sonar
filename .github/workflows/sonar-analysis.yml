@@ -9,68 +9,72 @@ on:
 jobs:
   sonar-auth-service:
     runs-on: self-hosted
-    container:
-      image: sonarsource/sonar-scanner-cli:latest
-      options: --network devsecops
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Scan auth-service
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=auth-service \
-            -Dsonar.sources=apps/auth-service/src \
-            -Dsonar.host.url=http://sonarqube:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            --network taller-sast-sonar_devsecops \
+            sonarsource/sonar-scanner-cli \
+            sonar-scanner \
+              -Dsonar.projectKey=auth-service \
+              -Dsonar.sources=/workspace/apps/auth-service/src \
+              -Dsonar.host.url=http://sonarqube:9000 \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   sonar-products:
     runs-on: self-hosted
-    container:
-      image: sonarsource/sonar-scanner-cli:latest
-      options: --network devsecops
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Scan products
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=products \
-            -Dsonar.sources=apps/products/src \
-            -Dsonar.host.url=http://sonarqube:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            --network taller-sast-sonar_devsecops \
+            sonarsource/sonar-scanner-cli \
+            sonar-scanner \
+              -Dsonar.projectKey=products \
+              -Dsonar.sources=/workspace/apps/products/src \
+              -Dsonar.host.url=http://sonarqube:9000 \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   sonar-frontend:
     runs-on: self-hosted
-    container:
-      image: sonarsource/sonar-scanner-cli:latest
-      options: --network devsecops
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Scan frontend
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=frontend \
-            -Dsonar.sources=apps/frontend/src \
-            -Dsonar.host.url=http://sonarqube:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            --network taller-sast-sonar_devsecops \
+            sonarsource/sonar-scanner-cli \
+            sonar-scanner \
+              -Dsonar.projectKey=frontend \
+              -Dsonar.sources=/workspace/apps/frontend/src \
+              -Dsonar.host.url=http://sonarqube:9000 \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   sonar-analisis-vulnerabilidades:
     runs-on: self-hosted
-    container:
-      image: sonarsource/sonar-scanner-cli:latest
-      options: --network devsecops
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Scan analisis-vulnerabilidades
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=analisis-vulnerabilidades \
-            -Dsonar.sources=apps/analisis-vulnerabilidades/backend,apps/analisis-vulnerabilidades/frontend \
-            -Dsonar.host.url=http://sonarqube:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            --network taller-sast-sonar_devsecops \
+            sonarsource/sonar-scanner-cli \
+            sonar-scanner \
+              -Dsonar.projectKey=analisis-vulnerabilidades \
+              -Dsonar.sources=/workspace/apps/analisis-vulnerabilidades/backend,/workspace/apps/analisis-vulnerabilidades/frontend \
+              -Dsonar.host.url=http://sonarqube:9000 \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
